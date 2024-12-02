@@ -1,59 +1,40 @@
 with open('input.txt') as num_in:
     num_input = num_in.read()
 
-
-num_lines_list = []
+# converts text file to list of elements that each contain 2 large numbers
 for line in num_input:
-    num_lines_replaced = num_input.replace('   ', ' ')
-    num_lines_replaced_two = num_lines_replaced.replace('\n', ',')
-    std_input = num_lines_replaced_two.split(',')
+    input_replaced = num_input.replace('   ', ' ')
+    input_replaced_two = input_replaced.replace('\n', ',')
+    std_input = input_replaced_two.split(',')
 
-std_input_list = []
+input_list = []
 for item in std_input:
-    std_input_list.append(item.split(' '))
+    input_list.append(item.split(' '))
 
-# converting all items in 0th and 1st index of std_input_list to list of separate strings of numbers
-std_input_a_strings = []
-for item in std_input_list:
-    std_input_a_strings.append(list(item[0]))
+# converting all strings in 0th and 1st index of input_list to ints and sorting
+a_strings = []
+for item in input_list:
+    a_strings.append(int(item[0]))
+a = sorted(a_strings)
 
-std_input_b_strings = []
-for item in std_input_list:
-    std_input_b_strings.append(list(item[1]))
+b_strings = []
+for item in input_list:
+    b_strings.append(int(item[1]))
+b = sorted(b_strings)
 
+# appending the differences of a[n] and b[n] to a list 'diffs'
+diffs = []
+counter = 0
+for i in range(len(a)):
+    if a[counter] > b[counter]:
+        diffs.append(a[counter] - b[counter])
+    elif a[counter] < b[counter]:
+        diffs.append(b[counter] - a[counter])
+    counter += 1
 
-# converts all sublists of strings of numbers to ints
-std_a = []
-for item in std_input_a_strings:
-    std_a_ints = []
-    for i in item:
-        std_a_ints.append(int(i))
-    std_a.append(std_a_ints)
-
-std_b = []
-for item in std_input_b_strings:
-    std_b_ints = []
-    for i in item:
-        std_b_ints.append(int(i))
-    std_b.append(std_b_ints)
-
-# sorts both lists of ints
-std_a_sorted = []
-for item in std_a:
-    std_a_sorted.append(sorted(item))
-
-std_b_sorted = []
-for item in std_b:
-    std_b_sorted.append(sorted(item))
-
-# converts all sorted sublists into a single list
-ints_sep_a = []
-for item in std_a_sorted:
-    for i in item:
-        ints_sep_a.append(i)
-
-ints_sep_b = []
-for item in std_b_sorted:
-    for i in item:
-        ints_sep_b.append(i)
-
+# finds the sum of all differences from 'diffs'
+counter = 0
+for i in diffs:
+    counter += i
+# desired output: 2264607
+print(counter)
