@@ -27,8 +27,11 @@ for i in data:
 # alterning through both above lists and adding to `id_free_space`
 # trying to turn the free space into periods of the same amount of free space
 id_free_space = []
+period = '.'
 for i in range(len(ids)):
     id_free_space.append("ID: " + str(ids[i]))
-    id_free_space.append("\." * free_space[i])
+    new_period = period * id_free_space[i]
+    id_free_space.append(new_period)
+    period = '.'
 
 print(id_free_space)
